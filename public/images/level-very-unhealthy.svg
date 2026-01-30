@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="sky-very-unhealthy" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#7B1FA2"/>
+      <stop offset="100%" style="stop-color:#4A148C"/>
+    </linearGradient>
+  </defs>
+  <!-- Sky -->
+  <rect width="400" height="400" fill="url(#sky-very-unhealthy)"/>
+  <!-- Dense smog -->
+  <rect x="0" y="0" width="400" height="400" fill="#6A1B9A" opacity="0.5"/>
+  <rect x="0" y="100" width="400" height="300" fill="#4A148C" opacity="0.4"/>
+  <!-- Buildings (barely visible) -->
+  <rect x="50" y="250" width="60" height="150" fill="#4A148C" opacity="0.4"/>
+  <rect x="130" y="200" width="80" height="200" fill="#6A1B9A" opacity="0.4"/>
+  <rect x="230" y="220" width="70" height="180" fill="#4A148C" opacity="0.4"/>
+  <rect x="320" y="260" width="50" height="140" fill="#6A1B9A" opacity="0.4"/>
+  <!-- Danger symbols -->
+  <polygon points="200,280 230,330 170,330" fill="#FF5722" stroke="#FFF" stroke-width="2"/>
+  <text x="200" y="320" text-anchor="middle" fill="white" font-size="24" font-weight="bold">!</text>
+  <!-- Ground -->
+  <rect x="0" y="380" width="400" height="20" fill="#311B92"/>
+  <!-- Label -->
+  <text x="200" y="375" text-anchor="middle" fill="#E040FB" font-size="20" font-weight="bold">重度污染</text>
+</svg>

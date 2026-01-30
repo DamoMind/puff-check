@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="sky-sensitive" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFCC80"/>
+      <stop offset="100%" style="stop-color:#BCAAA4"/>
+    </linearGradient>
+  </defs>
+  <!-- Sky -->
+  <rect width="400" height="400" fill="url(#sky-sensitive)"/>
+  <!-- Sun (dim) -->
+  <circle cx="320" cy="80" r="40" fill="#FFB74D" opacity="0.6"/>
+  <!-- Haze layers -->
+  <rect x="0" y="100" width="400" height="300" fill="#A1887F" opacity="0.4"/>
+  <rect x="0" y="200" width="400" height="200" fill="#8D6E63" opacity="0.3"/>
+  <!-- Buildings (less visible) -->
+  <rect x="50" y="250" width="60" height="150" fill="#8D6E63" opacity="0.8"/>
+  <rect x="130" y="200" width="80" height="200" fill="#A1887F" opacity="0.8"/>
+  <rect x="230" y="220" width="70" height="180" fill="#8D6E63" opacity="0.8"/>
+  <rect x="320" y="260" width="50" height="140" fill="#A1887F" opacity="0.8"/>
+  <!-- Ground -->
+  <rect x="0" y="380" width="400" height="20" fill="#795548"/>
+  <!-- Warning icon -->
+  <polygon points="200,320 220,360 180,360" fill="#FF9800"/>
+  <text x="200" y="355" text-anchor="middle" fill="white" font-size="20" font-weight="bold">!</text>
+  <!-- Label -->
+  <text x="200" y="380" text-anchor="middle" fill="#EF6C00" font-size="20" font-weight="bold">轻度污染</text>
+</svg>

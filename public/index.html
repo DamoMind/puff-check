@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>空气质量监测站</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌫️</text></svg>">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🌫️ 空气质量监测站</h1>
+      <p class="subtitle">实时监测 · AI 可视化 · 健康建议</p>
+    </header>
+
+    <main>
+      <!-- City Selector -->
+      <div class="city-selector">
+        <label for="city">选择城市:</label>
+        <select id="city">
+          <option value="beijing">北京</option>
+          <option value="shanghai">上海</option>
+          <option value="guangzhou">广州</option>
+          <option value="shenzhen">深圳</option>
+          <option value="chengdu">成都</option>
+          <option value="hangzhou">杭州</option>
+          <option value="nanjing">南京</option>
+          <option value="xian">西安</option>
+        </select>
+        <button id="refresh-btn" class="btn-secondary">🔄 刷新</button>
+        <button id="remove-city-btn" class="btn-danger hidden" title="删除此城市">🗑️</button>
+      </div>
+
+      <!-- Add Custom City -->
+      <div class="add-city-section">
+        <input type="text" id="custom-city" placeholder="输入城市拼音 (如: wuhan, tianjin)">
+        <button id="add-city-btn" class="btn-primary">➕ 添加城市</button>
+        <button id="set-default-btn" class="btn-secondary" title="设为默认城市">⭐ 设为默认</button>
+        <a href="https://aqicn.org/city/all/" target="_blank" class="city-help">查看支持的城市</a>
+      </div>
+
+      <!-- Loading State -->
+      <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>正在获取空气质量数据...</p>
+      </div>
+
+      <!-- Error State -->
+      <div id="error" class="error hidden">
+        <p>❌ 获取数据失败，请稍后重试</p>
+        <button onclick="loadAqiData()" class="btn-primary">重试</button>
+      </div>
+
+      <!-- Main Content -->
+      <div id="content" class="content hidden">
+        <!-- Export Container -->
+        <div id="export-container" class="export-container">
+        <!-- AI Image Section -->
+        <div class="image-section">
+          <div class="image-container">
+            <img id="aqi-image" src="" alt="空气质量可视化">
+            <div id="image-loading" class="image-loading hidden">
+              <div class="spinner"></div>
+              <p>AI 正在生成图片...</p>
+            </div>
+          </div>
+          <div class="image-actions">
+            <button id="generate-btn" class="btn-ai">
+              ✨ AI 生成新图片
+            </button>
+            <button id="export-btn" class="btn-export">
+              📤 导出分享图片
+            </button>
+          </div>
+        </div>
+
+        <!-- AQI Data Section -->
+        <div class="aqi-section">
+          <div class="aqi-main">
+            <div id="aqi-indicator" class="aqi-indicator">
+              <span id="aqi-value" class="aqi-value">--</span>
+              <span id="aqi-label" class="aqi-label">--</span>
+            </div>
+            <p id="city-name" class="city-name">--</p>
+          </div>
+
+          <div class="aqi-details">
+            <div class="detail-item">
+              <span class="detail-label">PM2.5</span>
+              <span id="pm25" class="detail-value">--</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">PM10</span>
+              <span id="pm10" class="detail-value">--</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">O₃</span>
+              <span id="o3" class="detail-value">--</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">NO₂</span>
+              <span id="no2" class="detail-value">--</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Health Advice Section -->
+        <div class="advice-section">
+          <h3>🛡️ 健康建议</h3>
+          <ul id="advice-list">
+          </ul>
+        </div>
+
+        <!-- Update Time -->
+        <div class="update-time">
+          <span>📡 数据更新时间: <span id="update-time">--</span></span>
+        </div>
+
+        <!-- Watermark for export (hidden normally) -->
+        <div id="export-watermark" class="export-watermark hidden">
+          🌫️ 空气质量监测站 | aqicn.org
+        </div>
+        </div><!-- End export-container -->
+      </div>
+    </main>
+
+    <footer>
+      <p>数据来源: <a href="https://aqicn.org" target="_blank">AQICN.org</a></p>
+      <p>AI 图片由 Cloudflare Workers AI 生成</p>
+    </footer>
+  </div>
+
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

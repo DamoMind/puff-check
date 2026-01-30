@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="sky-unhealthy" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#BDBDBD"/>
+      <stop offset="100%" style="stop-color:#757575"/>
+    </linearGradient>
+  </defs>
+  <!-- Sky -->
+  <rect width="400" height="400" fill="url(#sky-unhealthy)"/>
+  <!-- Sun (barely visible) -->
+  <circle cx="320" cy="80" r="40" fill="#E0E0E0" opacity="0.4"/>
+  <!-- Heavy haze -->
+  <rect x="0" y="50" width="400" height="350" fill="#9E9E9E" opacity="0.5"/>
+  <rect x="0" y="150" width="400" height="250" fill="#757575" opacity="0.4"/>
+  <!-- Buildings (hard to see) -->
+  <rect x="50" y="250" width="60" height="150" fill="#616161" opacity="0.6"/>
+  <rect x="130" y="200" width="80" height="200" fill="#757575" opacity="0.6"/>
+  <rect x="230" y="220" width="70" height="180" fill="#616161" opacity="0.6"/>
+  <rect x="320" y="260" width="50" height="140" fill="#757575" opacity="0.6"/>
+  <!-- Mask icons -->
+  <circle cx="100" cy="340" r="15" fill="#F44336"/>
+  <circle cx="300" cy="340" r="15" fill="#F44336"/>
+  <!-- Ground -->
+  <rect x="0" y="380" width="400" height="20" fill="#424242"/>
+  <!-- Label -->
+  <text x="200" y="380" text-anchor="middle" fill="#D32F2F" font-size="20" font-weight="bold">中度污染</text>
+</svg>
