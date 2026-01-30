@@ -1,69 +1,71 @@
-# 🌫️ AQI Monitor
+# 🌫️ PuffCheck
 
-实时空气质量监测 + 微信推送告警，部署在 Cloudflare Workers 上。
+Real-time air quality monitoring with WeChat push alerts. Deployed on Cloudflare Workers.
 
-## ✨ 功能
+**The highlight:** Instead of showing abstract AQI numbers, it tells you "breathing this air for a day equals smoking X cigarettes" - much easier to understand!
 
-- 📊 **实时 AQI 查询** - 支持全球城市
-- 🎨 **AI 生成可视化** - 根据污染等级生成场景图片
-- 📱 **微信推送** - 通过 Server酱 发送告警
-- 🚬 **直观表达** - "相当于吸几根烟" 比 AQI 数字更易懂
-- ⏰ **定时检查** - Cron 触发，自动监控
+## ✨ Features
 
-## 🚀 部署
+- 📊 **Real-time AQI** - Query air quality for cities worldwide
+- 🎨 **AI Visualization** - Generate scene images based on pollution levels
+- 📱 **WeChat Push** - Send alerts via ServerChan
+- 🚬 **Intuitive Expression** - PM2.5 converted to cigarette equivalents
+- ⏰ **Scheduled Checks** - Cron-triggered automatic monitoring
 
-### 前置条件
+## 🚀 Deployment
+
+### Prerequisites
 
 - [Node.js](https://nodejs.org/) 18+
-- [Cloudflare 账号](https://dash.cloudflare.com/)
+- [Cloudflare Account](https://dash.cloudflare.com/)
 - [AQICN API Token](https://aqicn.org/data-platform/token/)
-- [Server酱 SendKey](https://sct.ftqq.com/)（可选，用于微信推送）
+- [ServerChan SendKey](https://sct.ftqq.com/) (optional, for WeChat push)
 
-### 步骤
+### Steps
 
-1. **克隆项目**
+1. **Clone the project**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/aqi-monitor.git
-   cd aqi-monitor
+   git clone https://github.com/DamoMind/puff-check.git
+   cd puff-check
    npm install
    ```
 
-2. **创建 KV 命名空间**
+2. **Create KV namespace**
    ```bash
    npx wrangler kv:namespace create CACHE
    ```
-   将返回的 ID 更新到 `wrangler.toml`
+   Update the returned ID in `wrangler.toml`
 
-3. **配置 Secrets**
+3. **Configure Secrets**
    ```bash
    npx wrangler secret put AQICN_TOKEN
-   npx wrangler secret put SERVERCHAN_SENDKEY  # 可选
+   npx wrangler secret put SERVERCHAN_SENDKEY  # optional
    ```
 
-4. **修改配置**（可选）
+4. **Modify Configuration** (optional)
    
-   编辑 `src/config.ts` 修改监控城市和告警阈值：
+   Edit `src/config.ts` to change the monitored city and alert threshold:
    ```typescript
    export const ALERT_CONFIG = {
-     city: 'beijing',      // 监控城市
-     threshold: 100,       // AQI 告警阈值
-     cooldownHours: 0,     // 冷却时间
+     city: 'beijing',      // city to monitor
+     threshold: 100,       // AQI alert threshold
+     cooldownHours: 0,     // cooldown between alerts
    };
    ```
 
-5. **部署**
+5. **Deploy**
    ```bash
    npx wrangler deploy
    ```
 
 ## 📡 API
 
-### 查询 AQI
+### Query AQI
 ```
 GET /api/aqi?city=beijing
 ```
 
-响应：
+Response:
 ```json
 {
   "city": "Beijing (北京)",
@@ -72,49 +74,55 @@ GET /api/aqi?city=beijing
   "pm10": 42,
   "level": "moderate",
   "levelLabel": "良",
-  "advice": ["极少数敏感人群应减少户外活动"]
+  "advice": ["Sensitive groups should reduce outdoor activities"]
 }
 ```
 
-### 生成可视化图片
+### Generate Visualization
 ```
 POST /api/generate-image
 Content-Type: application/json
 
-{"level": "unhealthy", "aqi": 160, "city": "Handan"}
+{"level": "unhealthy", "aqi": 160, "city": "Beijing"}
 ```
 
-## ⏰ 定时任务
+## ⏰ Scheduled Tasks
 
-默认每天早晚各检查一次（北京时间 8:00 和 18:00）。
+By default, checks run twice daily (8:00 AM and 6:00 PM Beijing time).
 
-修改 `wrangler.toml` 中的 cron 表达式自定义：
+Customize the cron expression in `wrangler.toml`:
 ```toml
 [triggers]
-crons = ["0 0 * * *", "0 10 * * *"]  # UTC 时间
+crons = ["0 0 * * *", "0 10 * * *"]  # UTC time
 ```
 
-## 📱 微信通知格式
+## 📱 WeChat Notification Format
 
 ```
-空气不好，注意防护 🌫️
+Air quality alert 🌫️
 
-😷 外出记得戴口罩
-🪟 关好门窗
-💨 开空气净化器
+😷 Wear a mask when going out
+🪟 Keep windows closed
+💨 Turn on air purifier
 
 ---
-一天相当于吸 7 根烟 🚬🚬
+Breathing today = smoking 7 cigarettes 🚬🚬
 ```
 
-## 🔧 本地开发
+## 🔬 The Science
+
+The cigarette equivalent is based on [Berkeley Earth research](http://berkeleyearth.org/air-pollution-and-cigarette-equivalence/):
+- Every 22 μg/m³ of PM2.5 ≈ smoking 1 cigarette per day
+- PM2.5 160 μg/m³ → 160 ÷ 22 ≈ 7 cigarettes
+
+## 🔧 Local Development
 
 ```bash
 npm run dev
 ```
 
-访问 http://localhost:8787
+Visit http://localhost:8787
 
 ## 📄 License
 
-MIT
+Apache License 2.0
