@@ -123,6 +123,36 @@ npm run dev
 
 Visit http://localhost:8787
 
+## 📱 iMessage Alerts (macOS)
+
+For direct iMessage notifications without ServerChan, use the standalone script:
+
+```bash
+# Copy and configure
+cp scripts/.env.example scripts/.env
+# Edit scripts/.env with your settings
+
+# Run manually
+node scripts/puff-check.js
+
+# Or add to crontab (8am and 6pm daily)
+0 8,18 * * * cd /path/to/puff-check && node scripts/puff-check.js
+```
+
+**Environment variables:**
+| Variable | Description |
+|----------|-------------|
+| `AQICN_TOKEN` | API token from aqicn.org |
+| `AQI_CITY` | City to monitor (default: beijing) |
+| `AQI_THRESHOLD` | Alert threshold (default: 100) |
+| `IMESSAGE_CHAT_ID` | Group chat ID |
+| `IMESSAGE_RECIPIENT` | Individual email/phone |
+
+**Get chat ID:**
+```bash
+osascript -e 'tell application "Messages" to get id of every chat'
+```
+
 ## 📄 License
 
 Apache License 2.0
