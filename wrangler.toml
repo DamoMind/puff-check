@@ -11,10 +11,6 @@ bucket = "./public"
 binding = "CACHE"
 id = "e64ff5b421544104ab3f18d66b86618c"
 
-# AI binding for image generation
-[ai]
-binding = "AI"
-
 # Cron triggers - 每天早晚各一次 (北京时间 8:00 和 18:00)
 [triggers]
 crons = ["0 0 * * *", "0 10 * * *"]

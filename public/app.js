@@ -45,21 +45,8 @@ const HEALTH_ADVICE = {
   ],
 };
 
-// Pre-generated images for each level
-const LEVEL_IMAGES = {
-  'good': '/images/level-good.svg',
-  'moderate': '/images/level-moderate.svg',
-  'unhealthy-sensitive': '/images/level-unhealthy-sensitive.svg',
-  'unhealthy': '/images/level-unhealthy.svg',
-  'very-unhealthy': '/images/level-very-unhealthy.svg',
-  'hazardous': '/images/level-hazardous.svg',
-};
-
-// DOM Elements
 const citySelect = document.getElementById('city');
 const refreshBtn = document.getElementById('refresh-btn');
-const generateBtn = document.getElementById('generate-btn');
-const exportBtn = document.getElementById('export-btn');
 const removeCityBtn = document.getElementById('remove-city-btn');
 const setDefaultBtn = document.getElementById('set-default-btn');
 const customCityInput = document.getElementById('custom-city');
@@ -359,53 +346,6 @@ function updateUI(data) {
   updateImage(levelInfo.level, false);
 }
 
-// Update image
-function updateImage(level, useAI = false) {
-  if (useAI) {
-    // Show AI-generated image
-    generateAIImage(level);
-  } else {
-    // Use pre-generated image
-    imageEl.src = LEVEL_IMAGES[level] || LEVEL_IMAGES['moderate'];
-    imageEl.alt = `空气质量等级: ${level}`;
-  }
-}
-
-// Generate AI image
-async function generateAIImage(level) {
-  if (!currentData) return;
-
-  generateBtn.disabled = true;
-  imageLoadingEl.classList.remove('hidden');
-
-  try {
-    const response = await fetch('/api/generate-image', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        level: level,
-        aqi: currentData.aqi,
-        city: currentData.city,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to generate image');
-    }
-
-    const blob = await response.blob();
-    const imageUrl = URL.createObjectURL(blob);
-    imageEl.src = imageUrl;
-  } catch (error) {
-    console.error('Error generating AI image:', error);
-    alert('AI 图片生成失败，请稍后重试');
-  } finally {
-    generateBtn.disabled = false;
-    imageLoadingEl.classList.add('hidden');
-  }
-}
 
 // Event listeners
 citySelect.addEventListener('change', () => {

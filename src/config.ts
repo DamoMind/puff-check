@@ -7,10 +7,6 @@ export interface Env {
 
   // ServerChan SendKey for WeChat notifications
   SERVERCHAN_SENDKEY: string;
-
-  // Cloudflare AI binding
-  AI: Ai;
-
   // Static assets
   __STATIC_CONTENT: KVNamespace;
 }
